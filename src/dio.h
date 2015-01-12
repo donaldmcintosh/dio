@@ -32,5 +32,4 @@ unsigned long long 	totr;
 unsigned long long 	totw;
 float	maxbrs;
 float	maxbws;
-FILE *iofp;
 FILE	*ofile;

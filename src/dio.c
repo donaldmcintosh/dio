@@ -153,10 +153,6 @@ int main(int argv, char** argc)
 	exit(0);
 }
 
-void opendiskstats() {
-    iofp = fopen("/proc/diskstats", "r");
-}
-
 void initwindow(WINDOW* win)
 {
 	nodelay(win, TRUE);
@@ -197,7 +193,6 @@ void updatescreen(char* dev, WINDOW *win, WINDOW* tot, int ival)
 	char   line[WIDTH];
 	int	   i;
 
-        opendiskstats();
         getdiskstats(dev, &bio);
 	sleep(ival);
 	bioold = bio;
@@ -235,7 +230,7 @@ void listio(){
     int minor;
     char devname[8];
 
-    opendiskstats();
+    FILE *iofp = fopen("/proc/diskstats", "r");
     printf("Available devices are:\n");
     scan_fmt = "%4d %4d %s";
 
@@ -258,8 +253,8 @@ void getdiskstats(char* dev, struct blkio_info *new)
 
     scan_fmt = "%4d %4d %s %u %u %llu %u %u %u %llu %u %u %u %u";
 
-    rewind(iofp);
-    while (fgets(buffer, sizeof(buffer), iofp)) {
+    FILE *iofp = fopen("/proc/diskstats", "r");
+    while (iofp != NULL && fgets(buffer, sizeof(buffer), iofp)) {
         sscanf(buffer, scan_fmt,
 			       &(new->major), &(new->minor),
 			       &(new->devname), 
