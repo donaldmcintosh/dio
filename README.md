@@ -1,5 +1,5 @@
 # dio
-dio - Device I/O monitoring tool
+dio - device I/O analysis tool
 
 ![dio png](https://github.com/donaldmcintosh/dio/blob/master/site/dio.png)
 
