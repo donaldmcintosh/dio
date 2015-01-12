@@ -1,0 +1,37 @@
+dio v1.5  
+---------
+
+    dio is a device I/O analysis tool.  dio is copyrighted under 
+    the MIT licence.
+
+COMPILING:
+
+    Compilation of dio will require a C compiler, preferably gcc.
+	
+    To compile dio, run the following command:
+
+        # make dio
+
+    (You may get a couple of warnings about redefinitions, they are nothing
+    to worry about.)
+
+    This will generate the binary.
+
+    Then run the following command to install the binary and man page
+    in /usr/local:
+
+        # make install
+
+    Et voila!  You have a working copy of dio.
+
+    Don't forget to add /usr/local/bin into your PATH and /usr/local/man
+    into your MANPATH.
+
+
+USAGE:
+
+    dio [ -o <output file name> ] <device name> <time interval>
+    dio -l
+
+Donald McIntosh.
+Email: donaldbmcintosh@yahoo.co.uk

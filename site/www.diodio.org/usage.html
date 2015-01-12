@@ -1,0 +1,94 @@
+<HTML>
+<HEAD>
+
+</HEAD>
+
+<LINK REL="STYLESHEET" TYPE="text/css" href="css/style.css">
+
+<META NAME="description" CONTENT="dio website">
+<META NAME="keywords" CONTENT="dio, UNIX, Solaris, disk performance, slow, bad performance, disk I/O, I/O, read rate, write rate, queue length, diodio">
+<TITLE>
+dio - device I/O analysis tool - Using dio
+</TITLE>
+<BODY BGCOLOR=FFFFFF>
+<FONT FACE=courier>
+<U><H3>Using dio</H3></U>
+
+dio can be used in many different ways to solve a whole variety of problems.  It is a surprisingly versatile tool, which with a bit of imagination, can be of assistance in many different Solaris issues.  Here are some examples:
+<P>
+
+<B>
+<LI><A HREF=#Bench>Benchmarking</A><BR></LI>
+<LI><A HREF=#Page>Paging/Swapping monitoring</A><BR></LI>
+<LI><A HREF=#Usage>Confirming I/O device usage</A><BR></LI>
+<LI><A HREF=#Tape>Visualise I/O profile for overnight tape backups</A><BR></LI>
+</B>
+
+<FONT COLOR=#FF0000>
+<U><H4><A NAME=Bench>Benchmarking</A></H4></U>
+</FONT>
+
+<FONT COLOR=#000090>
+How much slower is RAID-5 than a straight stripe when writing?  Is there any difference when reading?<P>
+How are mirrored disks used during a large read operation?  Are they both used together or are they used one at a time?<P>
+How fast can a disk read or write data?<P>
+</FONT>
+
+dio can be used to answer questions like these and provide evidence of the benefits, or otherwise, of a particular disk configuration.  Setup your disks in various configurations and run dio to gather all the I/O statistics while your benchtests are running.
+<P>If you use the -o option you can graph the results of your tests at a later stage.  Graphs based on output from dio provide an excellent I/O profile of a benchmark test which can then be easily compared.
+
+<FONT COLOR=#FF0000>
+<U><H3><A NAME=Page>Paging/Swapping monitoring</A></H3></U>
+</FONT>
+
+<FONT COLOR=#000090>
+Why is my system saying that it is constantly "waiting for I/O" when I know there should be very little I/O occuring?<P>
+Is my system paging a lot?<P>
+</FONT>
+
+For many reasons systems can find themselves short of memory.  dio can be used in collaboration with other tools to (like top, vmstat and sar -r) to confirm if indeed your system is so short of memory that it has started pageing or swapping in an effort to free up memory.<P>
+
+Running dio against the swap devices (do swap -l to get device names) allows the user to watch paging/swapping as it takes place.  Performance on such a system will almost definitely take a hit until something is done to relieve the memory shortage.  dio can then be used to test the impact of measures taken to fix the problem.
+<P>
+
+<FONT COLOR=#FF0000>
+<U><H3><A Name=Usage>Confirming I/O device usage</A></H3></U>
+</FONT>
+
+<FONT COLOR=#000090>
+Why should I go to the bother of striping my file system?  Does that much I/O actually take place?<P>
+How much data is written to /var during the course of a day?<P>
+Should I tune this file system to be fast for reading, writing or both?<P>
+</FONT>
+
+dio is useful for getting a handle on how a file system, disk or SDS metadevice is used.  Establishing if a volume is mostly read from or written, and how much data is transferred to and from it is obviously a very useful.<P>
+
+Running dio against a supposedly busy partition could for example reveal how little it is used which would then impact future sizing/performance considerations.  Conversely, it could show up "hot" disks that are being used constantly and may need to be improved some how.
+
+<FONT COLOR=#FF0000>
+<U><H3><A Name=Tape>Visualise I/O profile for overnight tape backups</A></H3></U>
+</FONT>
+
+<FONT COLOR=#000090>
+What's the I/O profile for my overnight tape backups?<P>
+How much throughput can I realistically achieve to a 4 DLT drive Jukebox using differential SCSI?  Are all the drives being used?<P>
+</FONT>
+
+I/O profile is a term used to describe a data throughput against time analysis, basically a graph of bytes written against time in this instance.<P>
+
+dio has been used very successfully to troubleshoot a Solstice backup system.  By running dio against all the DLT devices in the jukebox overnight and graphing the results it showed that only 3 of the 4 devices where being used.
+<P>
+
+If you have any unusual or innovative ways in which you are using dio, please <A HREF="feedback.html">let me know</A> and I will add it in here.<P>
+
+<P ALIGN=right>
+<A TARGET=_top HREF="index.html">dio homepage</A>
+</P>
+
+</FONT>
+
+
+
+</BODY>
+
+</HTML>

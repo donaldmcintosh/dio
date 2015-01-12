@@ -1,0 +1,114 @@
+'\" t
+.TH "MANUAL PAGE" 1 "09 January 2002" "dio v1.4" "dio"
+.SH NAME
+dio - device I/O analysis tool
+.SH SYNOPSIS
+dio [ -o filename ] device interval
+.br
+dio -l
+.SH DESCRIPTION
+dio is a device I/O analysis tool.  It takes a device name and a time interval in seconds as parameters.  dio samples kernel statistics at the specified time interval and uses them to derive useful real-time and cumulative performance statistics.  It presents the output in a standard terminal window using the standard curses library, which contains the output on visible terminal.  The approach offers a more intuitive visual presentation of the data.
+
+The device name can be an entire disk, a disk slice, a metadevice or any other kind of I/O device.  The -l option can be used to list the names of all available I/O devices.
+
+The abbreviated column headings on the output are explained below:
+
+.TS
+l l
+l l
+l l
+l l
+l l
+l l
+l l
+l l
+l l
+l l
+l l.
+br	number of bytes read during time interval.
+bw	number of bytes written during time interval.
+rkb/s	T{
+average kilobytes per second read from device.
+T}
+wkb/s	T{
+average kilobytes per second written to the device.
+T}
+%r:%w	T{
+ratio of data read to data written.  Useful for visualising the changing direction of data flow.
+T}
+ro	T{
+number of read operations.
+T}
+wo	T{
+number of write operations.
+T}
+ios	T{
+I/O operations current in progress.
+T}
+rt	T{
+time spent reading.
+T}
+wt	T{
+time spent writing.
+T}
+.TE
+
+Also included in the output is maximum recorded read rate recorded, maximum write rate, total megabytes read and total megabytes written during the period that dio was running.
+
+Both rt and wt fields can legitimately be greater than the elapsed time of the interval.  These present the sum of time spent actioning read and write requests and these will often be done in parallel when the I/O device is busy.  In such cases the total write/read time can be many time greater than elapsed time, depending on the capability of the device.
+
+To quit out of dio, press q or Ctrl-d.
+
+.SH OPTIONS
+.TP
+.B \-o
+Specify the name of the output log file.
+.TP
+.B \-l
+List all the I/O devices on the machine.  The output consists of three columns, Device Name, Class and Mapping.  Device Name is the name of the device in the format expected by dio.  Class is the type of I/O device, such as disk, partition, nfs or tape.  Where the device is a disk or a partition, the Mapping column maps the device name to the more familiar cXtXdXsX notation.
+.SH EXAMPLES
+Following are some examples of dio can be invoked.
+
+Example 1:
+In this example, dio is invoked to measure I/O on a slice sda6.
+
+First run dio -l, to list all I/O devices.  The output will show something like this:
+
+Available devices are:
+   sda
+   sda1
+   sda2
+   sda3
+   sda4
+   sda5
+   sda6
+   sr0
+   sdb
+   sdc
+   sdd
+   sde
+   sdf
+   sdg
+   sdh
+
+Then invoke dio as follows to monitor slice sda6 (the sixth partition in the sda device) at four second intervals:
+
+ % dio sda 4
+
+Example 2:
+In this instance, dio is invoked to measure I/O on the entire sda device:
+
+ % dio sda 2
+
+.SH TIPS
+
+Running dio -l option is a very good place to start for identifying the names of devices you would like to analyse.
+
+.SH NOTES
+
+dio was originally written in 2002 for Solaris, which offered the kstat library for kernel statistics.  Version 1.5 is linux only and uses Linux kernel I/O disk stats instead.
+
+.SH AUTHOR
+
+Donald McIntosh <donaldbmcintosh@yahoo.co.uk>, 06 January 2014.
+

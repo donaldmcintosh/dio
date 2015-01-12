@@ -1,0 +1,21 @@
+<style type="text/css">
+
+a:link  {
+    color : red;
+    font-weight : normal;
+    text-decoration : underline;
+}
+
+a:active  {
+    color : blue;
+    font-weight : normal;
+    text-decoration : underline;
+}
+
+a:visited  {
+    color : blue;
+    font-weight : normal;
+    text-decoration : underline;
+}
+
+</style>

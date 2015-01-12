@@ -1,0 +1,103 @@
+<HTML>
+<HEAD>
+
+</HEAD>
+
+<LINK REL="STYLESHEET" TYPE="text/css" href="css/style.css">
+
+<META NAME="description" CONTENT="dio website">
+<META NAME="keywords" CONTENT="dio, UNIX, Solaris, disk performance, disk I/O, I/O, read rate, write rate, queue length, diodio">
+<BODY BGCOLOR=FFFFFF>
+<TITLE>
+dio, disk monitoring and performance analysis tool
+</TITLE>
+<FONT FACE=courier>
+
+<STRONG>
+<U><FONT COLOR=#FF0000>Development History</FONT></U><P>
+</STRONG>
+
+Released dio version 1.5 today.  It incorporates a few improvements that several people have asked for.
+
+<TABLE>
+<TR><TD><TD> You can now specify a <STRONG>max count</STRONG> which is the number of times that you want dio to sample data.</TR>
+<TR><TD><TD> The scrolling section of dio's output will now expand in size to fit the size of the terminal it's running in.  </TR>
+<TR><TD><TD> dio now supports OSA environments. </TR>
+<TR><TD><TD> Some coding improvements including using getopt to get command line options and improving the way it invokes curses. </TR>
+</TABLE>
+
+Thanks to all the people who suggested and even sent me code improvements, including Brian Lomeland & Murali.<P>
+
+Donald McIntosh.<BR>
+17th October 2002.
+<P>
+
+Version 1.4 is now available.  I have finally done the enhancement that most people have asked for, to provide an easy way of mapping the device name sdX,X (which dio uses) to the more familiar cXtXdXsX notation.  The dio -l option now shows the mapping, if it exists, between these two naming schemes.
+<P>
+
+As usual, thank you to everyone for their suggestions.  I've only had time to implement the most popular.  Thanks also to everyone who helped me test the new version, including Asif Sadiq, Rocke Robertson, Andrew Brooks and Louwtjie Burger.
+<P>
+
+Donald McIntosh.<BR>
+11th January 2002.
+<P>
+
+I have released another version of <STRONG>dio</STRONG>.  It incorporates many improvements and some
+ minor bug fixes.  Following is a list of changes and improvements in version 1.3:<P>
+<TABLE>
+<TR><TD><TD> <STRONG>dio</STRONG> now measures write operations and
+ read operations.  The br+bw column has been dropped in favour of the more useful ro and wo columns.
+</TR>
+<TR><TD><TD> The -o option now includes in the log file (which is n
+ow better formatted) a start time and an end time.</TR>
+<TR><TD><TD> To exit out of dio, users now hit q or ctrl-d instead
+of the more ugly ctrl-c which was required before.</TR>
+<TR><TD><TD> <STRONG>dio</STRONG> is now available in Solaris <A HR
+EF="download.html">package format</A>.  This is the download format I would recommend as it includes
+ the man page.</TR>
+<TR><TD><TD> There is now a makefile included in the source as prov
+ided by Ade Rixon.</TR>
+<TR><TD><TD> Following advice kindly offered by Peter Bray my code
+is now a lot tidier and compiles without any errors.</TR>
+</TABLE>
+<P>
+
+Thank you to everyone who wrote to me with suggestions, makefiles (!) or just to say that they find
+dio useful.  It all helps.  I am not intending to do any more enhancements to dio for a while now.
+<P>
+
+Donald McIntosh.<BR>
+21th November 2001.
+<P>
+
+Yet another release, but I am now happy with this one.  In version 1.2 the code has been tidied up and has another option -l.  If you do <STRONG>dio -l</STRONG> it will print out the device name and class of all the I/O devices on your machine.  You can then use dio with any of these devices.  This gets round the problem of working out device names which can be quite laborious.<P>
+
+Donald McIntosh.<BR>
+6th November 2001.
+<P>
+I've done one of the enhancements.  There is now a -o option that allows users to specify an output file, where the data is logged.  It is logged in a very simlar format to the real-time display, except the columns are also separated by commas.  This for ease of import to Excel for example, where one of the data input formats is "comma separated".  The source and all the binaries have been updated to dio v1.1.<P>
+
+Donald McIntosh.<BR>
+5th November 2001.
+<P>
+Two enhancements that I know I need to do, and will be coming soon, is to write an option to provide an output file name.  All the data that is currently lost as it scrolls off the screen would be saved to a file.  The data could then be graphed in Excel or something, which would be very useful I think.  The other thing that I want to do is write wrapper script which derives the sd2,c style of disk notation from the c0t0d0s3 notation, or maps a file system name to a metadevice.  I am aware that it's a bit of a hassle to work out the device names just now, so this should sort that.
+<P>
+
+
+Donald McIntosh.<BR>
+3rd November 2001.
+<P>
+
+<P><P>
+
+
+<P ALIGN=right>
+<A TARGET=_top HREF="index.html">dio homepage</A>
+</P>
+
+</FONT>
+
+
+</BODY>
+
+</HTML>

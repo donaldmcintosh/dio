@@ -1,0 +1,133 @@
+<HTML>
+<HEAD>
+
+</HEAD>
+
+<LINK REL="STYLESHEET" TYPE="text/css" href="css/style.css">
+
+<META NAME="description" CONTENT="dio website">
+<META NAME="keywords" CONTENT="dio, UNIX, Solaris, device I/O analysis tool, disk performance, disk I/O, I
+/O, read rate, write rate, queue length, diodio">
+<TITLE>
+dio - device I/O analysis tool - Man page
+</TITLE>
+<BODY BGCOLOR=FFFFFF>
+<FONT FACE=courier>
+<U>Man Page</U><P>
+NAME<P>
+<B>&nbsp;&nbsp;&nbsp;&nbsp;dio [ -o &lt;output file&gt; ] &lt;device name&gt; &lt;time interval&gt; [ &lt;max count&gt; ]</B><BR>
+<B>&nbsp;&nbsp;&nbsp;&nbsp;dio -l</B>
+<P>
+DESCRIPTION
+<P>
+dio is a device I/O analysis tool.  It takes a device name and a time interval in seconds as parameters.  dio then samples kernel statistics an optional maximum of max count times at the specified time interval and uses them to derive useful real-time and cumulative performance statistics.  It presents the output in a standard terminal window.
+<P>
+
+The device name can be an entire disk, a disk slice, a metadevice or any other kind of I/O device.  The -l option can be used to list the names of all available I/O devices.
+
+<P>
+The abbreviated column headings on the output are explained below:
+<P>
+
+<TABLE>
+<TR><TD>br:<TD> number of bytes read during time interval.</TR>
+<TR><TD>bw:<TD> number of bytes written during time interval.</TR>
+<TR><TD>rkb/s:<TD> kilobytes per second read from device.</TR>
+<TR><TD>wkb/s:<TD> kilobytes per second written to the device.</TR>
+<TR><TD>%r:%w:<TD> ratio of data read to data written.  Useful for visualising the changing direction of data flow. </TR>
+<TR><TD>ro:<TD> number of read operations.</TR>
+<TR><TD>wo:<TD> number of write operations.</TR>
+<TR><TD>rq:<TD> average run queue length over the time interval.</TR>
+<TR><TD>rq %b:<TD> percentage of time that the run queue was occupied, i.e. rq w
+as non-zero.</TR>
+<TR><TD>wq:<TD> average wait queue length.</TR>
+<TR><TD>wq %b:<TD> percentage of time that the wait queue was occupied, i.e. wq
+was non-zero.</TR>
+</TABLE>
+<P>
+
+Also included in the output is maximum recorded read rate recorded, maximum write rate, total megabytes read and total megabytes written during the period that dio was running.
+<P>
+
+Although it may seem that the run queue length would be preferable measurement to the average run queue length, in practice this is rarely true.  The run queue length is continually changing, so it's value at any given moment gives no measure of what it was a nanosecond before it was sampled.  Therefore the average run queue length is often found to be more useful and is derived from the run queue length integral over time which is maintained by the operating system.
+<P>
+
+To quit out of dio, press q or Ctrl-d.
+<P>
+
+OPTIONS<P>
+<TABLE>
+<TR><TD WIDTH=150>&nbsp;-o&nbsp;&nbsp;<U>file</U><TD>Specify the name of the out
+put log file.</TR>
+<TR><TD>&nbsp;-l&nbsp;&nbsp;<TD>List all the I/O devices on the machine.  The output consists of three columns,
+Device Name, Class and Mapping.  Device Name is the name of the device in the fo
+rmat expected by dio.  Class is the type of I/O device, such as disk, partition,
+ nfs or tape.  Where the device is a disk or a partition, the Mapping column map
+s the device name to the more familiar cXtXdXsX notation.
+</TR>
+</TABLE>
+<P>
+
+
+EXAMPLES<P>
+Following are some examples of dio can be invoked.
+<P>
+
+Example 1:<BR>
+In this example, dio is invoked to measure I/O on a slice c4t2d0s2.
+<P>
+First run dio -l, to list all I/O devices.  The output will show the device name
+ that maps to slice c4t2d0s2.  In the example output below, it maps to device sd62,c.
+<P>
+&nbsp;Device&nbsp;Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Class&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mapping<BR>
+&nbsp;sd62&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->&nbsp;&nbsp;disk&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->&nbsp;&nbsp;c4t2d0<BR>
+&nbsp;sd62,a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->&nbsp;&nbsp;partition&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->&nbsp;&nbsp;c4t2d0s0<BR>
+&nbsp;sd62,c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->&nbsp;&nbsp;partition&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->&nbsp;&nbsp;c4t2d0s2<BR>
+&nbsp;sd62,g&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->&nbsp;&nbsp;partition&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->&nbsp;&nbsp;c4t2d0s6<BR>
+<P>
+Then invoke dio as follows to monitor slice c4t2d0s2 at four second intervals:
+<P>
+<STRONG>
+ % dio sd62,c 4
+</STRONG>
+<P>
+
+Example 2:<BR>
+ In this instance, dio is invoked to measure I/O on a mirrored file system.
+<P>
+
+<STRONG>
+ % dio md30 2
+</STRONG>
+<P>
+
+where md30 appears is a metadevice.  The sample rate is every two seconds.
+<P>
+
+TIPS
+<P>
+
+Running dio -l option is a very good place to start for identifying the names of devices you would like to analyse.
+<P>
+
+NOTES
+<P>
+Some older versions of Solaris and Solaris for Intel do not collect I/O statisti
+cs for slices of disks.  In such cases you will only will only be able to analys
+e entire disks and will not be able to go down the level of analysing slices.
+<P>
+
+AUTHOR
+<P>
+
+Donald McIntosh 
+<P>
+
+<P ALIGN=right>
+<A TARGET=_top HREF="index.html">dio homepage</A>
+</P>
+
+
+</BODY>
+
+</HTML>
