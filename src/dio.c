@@ -29,7 +29,7 @@ int height = 24;
 void initwindow(WINDOW *win);
 void setheadwin(WINDOW *win, char* dev);
 void updatescreen(char* dev, WINDOW*, WINDOW*, int ival);
-void getdiskstats(char* dev, struct blkio_info* new);
+int getdiskstats(char* dev, struct blkio_info* new);
 void calcstats(char* line, struct blkio_info new, struct blkio_info old, int ival);
 void printtots(WINDOW *win);
 void usage();
@@ -191,32 +191,39 @@ void updatescreen(char* dev, WINDOW *win, WINDOW* tot, int ival)
 	struct blkio_info	bio;
 	struct blkio_info	bioold;
 	char   line[WIDTH];
+	char   msg[200];
 	int	   i;
 
-        getdiskstats(dev, &bio);
+    if(!getdiskstats(dev, &bio)){
+        sprintf(msg,"Cannot find %s, please chose a valid device from dio -l.\n", dev);
+        bomb(1, msg, 0);
+	}
+
 	sleep(ival);
 	bioold = bio;
 
 	for(i = 0; i<scrlheight-1; i++){
-        getdiskstats(dev, &bio);
-		calcstats(line, bio, bioold, ival);
-		wmove(win,i,0);
-		waddstr(win,line);
-		wrefresh(win);
-		printtots(tot);
+        if(getdiskstats(dev, &bio)) {
+			calcstats(line, bio, bioold, ival);
+			wmove(win,i,0);
+			waddstr(win,line);
+			wrefresh(win);
+			printtots(tot);
+		}
 		sleep(ival);
 		check_input();
 		bioold = bio;
 	}
 	
 	while(1){
-        getdiskstats(dev, &bio);
-		calcstats(line, bio, bioold, ival);
-		wmove(win,scrlheight-1,0);
-		waddstr(win,line);
-		scroll(win);
-		wrefresh(win);
-		printtots(tot);
+        if(getdiskstats(dev, &bio)) {
+			calcstats(line, bio, bioold, ival);
+			wmove(win,scrlheight-1,0);
+			waddstr(win,line);
+			scroll(win);
+			wrefresh(win);
+			printtots(tot);
+		}
 		sleep(ival);
 		check_input();
 		bioold = bio;
@@ -245,11 +252,10 @@ void listio(){
     close_end(0);
 }
 
-void getdiskstats(char* dev, struct blkio_info *new)
+int getdiskstats(char* dev, struct blkio_info *new)
 {
 	const char *scan_fmt = NULL;
     char buffer[256];       /* Temporary buffer for parsing */
-	char	msg[200];
 
     scan_fmt = "%4d %4d %s %u %u %llu %u %u %u %llu %u %u %u %u";
 
@@ -268,12 +274,15 @@ void getdiskstats(char* dev, struct blkio_info *new)
         gettimeofday(&(new->tv), NULL);
            
         if(strcmp(new->devname, dev) == 0){
-            return;
+            return TRUE;
         }
     }
 
-    sprintf(msg,"Cannot find %s, please chose a valid device from dio -l.\n", dev);
-    bomb(1, msg, 0);
+	/* 
+	 * As per iostat.txt, there will occasionally be collisions and no I/O data,
+	 * so let caller decide how serious this is.
+	 */
+	return FALSE;
 }
 
 void calcstats(char* line, struct blkio_info new, struct blkio_info old, int ival)
