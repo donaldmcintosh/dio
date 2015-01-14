@@ -281,7 +281,6 @@ int getdiskstats(char* dev, struct blkio_info *new)
         }
     }
 
-
 	/* 
 	 * As per iostat.txt, there will occasionally be collisions and no I/O data,
 	 * so let caller decide how serious this is.
