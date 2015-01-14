@@ -277,7 +277,10 @@ int getdiskstats(char* dev, struct blkio_info *new)
             return TRUE;
         }
     }
-    fclose(iofp);
+
+	if(iofp != NULL) {
+        fclose(iofp);
+	}
 
 	/* 
 	 * As per iostat.txt, there will occasionally be collisions and no I/O data,
