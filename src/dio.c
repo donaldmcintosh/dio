@@ -274,10 +274,13 @@ int getdiskstats(char* dev, struct blkio_info *new)
         gettimeofday(&(new->tv), NULL);
            
         if(strcmp(new->devname, dev) == 0){
+	        if(iofp != NULL) {
+                fclose(iofp);
+	        }
             return TRUE;
         }
     }
-    fclose(iofp);
+
 
 	/* 
 	 * As per iostat.txt, there will occasionally be collisions and no I/O data,
