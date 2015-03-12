@@ -4,15 +4,13 @@
 
 EAPI="5"
 
-inherit git-r3
-
 SLOT="0"
 
 DESCRIPTION="dio - Device I/O monitoring tool"
 
 HOMEPAGE="https://github.com/donaldmcintosh/dio"
 
-EGIT_REPO_URI="https://github.com/donaldmcintosh/dio.git"
+SRC_URI="https://github.com/donaldmcintosh/dio/rel/dio-1.5.tar.gz"
 
 LICENSE="MIT"
 
@@ -20,10 +18,9 @@ KEYWORDS="~x86"
 
 DEPEND=">=sys-libs/ncurses-5.10-r2"
 
-src_compile() {
-    cd src
-	make
-}
+RDEPEND="${DEPEND}"
+
+S="${WORKDIR}/${P}/src"
 
 src_install() {
     dobin src/dio 
