@@ -10,7 +10,7 @@ DESCRIPTION="dio - Device I/O monitoring tool"
 
 HOMEPAGE="https://github.com/donaldmcintosh/dio"
 
-SRC_URI="https://github.com/donaldmcintosh/dio/archive/1.5.1.tar.gz"
+SRC_URI="https://github.com/donaldmcintosh/dio/archive/1.5.2.tar.gz"
 
 LICENSE="MIT"
 
@@ -23,6 +23,6 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${P}/src"
 
 src_install() {
-    dobin src/dio 
-	doman src/dio.1
+    dobin dio 
+	doman dio.1
 }
