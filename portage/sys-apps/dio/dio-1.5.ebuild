@@ -10,7 +10,7 @@ DESCRIPTION="dio - Device I/O monitoring tool"
 
 HOMEPAGE="https://github.com/donaldmcintosh/dio"
 
-SRC_URI="https://github.com/donaldmcintosh/dio/archive/dio-1.5.tar.gz"
+SRC_URI="https://github.com/donaldmcintosh/dio/archive/dio-1.5.0.tar.gz"
 
 LICENSE="MIT"
 
